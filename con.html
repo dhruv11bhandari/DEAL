@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DealLoop | Contact</title>
+
+  <style>
+    body {
+      background-color: rgb(12, 11, 11);
+      color: rgb(219, 213, 213);
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* STAR SIDES */
+    .stars {
+      position: fixed;
+      top: 0;
+      width: 120px;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .left-stars { left: 0; }
+    .right-stars { right: 0; }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #38a581;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.4); }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #0b0b0b;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo a {
+      color: #38a581;
+      font-weight: bold;
+      font-size: 1.6rem;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #38a581;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section.intro-text {
+      color: #82c99a;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    h3, h4 {
+      color: #38a581;
+      margin-top: 25px;
+    }
+
+    a {
+      color: #38a581;
+      text-decoration: none;
+    }
+
+    form {
+      margin-top: 20px;
+      background: #111;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 15px;
+      background-color: #222;
+      color: #ddd;
+      font-size: 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    input[type="submit"] {
+      background-color: #38a581;
+      color: white;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .follow-us {
+      margin-top: 30px;
+    }
+
+    .follow-us a {
+      margin-right: 15px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .success {
+      display: none;
+      background: #1e3d34;
+      color: #82c99a;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- STAR LAYERS -->
+<div class="stars left-stars" id="leftStars"></div>
+<div class="stars right-stars" id="rightStars"></div>
+
+<header>
+  <div class="logo">
+    <a href="main.html">DEALLOOP</a>
+  </div>
+  <nav>
+    <a href="main.html">HOME</a>
+    <a href="coup.html">COUPONS</a>
+    <a href="aboutus.html">ABOUT US</a>
+    <a href="con.html">CONTACT</a>
+  </nav>
+</header>
+
+<section class="intro-text">
+  <h3>We are happy to hear from you!</h3>
+  <p>
+    Have a question, idea, or a wild coupon victory story? We’re all ears.
+    Whether you want help, want to partner, or just want to say hi — reach out
+    and we’ll reply asap.
+  </p>
+
+  <h4>Contact Options</h4>
+  <p>Email: <a href="mailto:321dhruv.b@gmail.com">321dhruv.b@gmail.com</a></p>
+  <p>Phone: +91 8971299734 (Mon–Fri)</p>
+  <p>Address: Skymansion 021, 27th Floor, Kingfisher Tower, Bangalore, India</p>
+
+  <h4>Support Hours</h4>
+  <p>Monday — Friday: 09:00 – 18:00 (IST)</p>
+
+  <h4>Quick Contact Form</h4>
+
+  <form id="contactForm">
+    <label>Full name</label>
+    <input type="text" required>
+
+    <label>Email address</label>
+    <input type="email" required>
+
+    <label>Subject</label>
+    <select required>
+      <option value="">Select</option>
+      <option>Support</option>
+      <option>Partnership</option>
+      <option>Feedback</option>
+      <option>Other</option>
+    </select>
+
+    <label>Message</label>
+    <textarea required></textarea>
+
+    <input type="submit" value="Send Message">
+    <div class="success" id="successMsg">
+      ✅ Message sent successfully! We’ll get back to you soon.
+    </div>
+  </form>
+
+  <div class="follow-us">
+    <h4>Follow Us</h4>
+    <a href="https://www.instagram.com">Instagram</a>
+    <a href="#">Twitter</a>
+    <a href="#">Facebook</a>
+    <a href="https://www.linkedin.com/in/dhruv-bhandari-b08041364/">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  © 2025 Bhandari & Company. All rights reserved.
+</footer>
+
+<script>
+  const form = document.getElementById("contactForm");
+  const successMsg = document.getElementById("successMsg");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    successMsg.style.display = "block";
+    form.reset();
+    setTimeout(() => successMsg.style.display = "none", 4000);
+  });
+
+  function generateStars(containerId) {
+    const container = document.getElementById(containerId);
+    for (let i = 0; i < 35; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.left = Math.random() * 100 + "%";
+      star.style.animationDelay = Math.random() * 3 + "s";
+      container.appendChild(star);
+    }
+  }
+
+  generateStars("leftStars");
+  generateStars("rightStars");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DealLoop | About Us</title>
+
+  <style>
+    body {
+      background-color: rgb(12, 11, 11);
+      color: rgb(219, 213, 213);
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background-color: #0b0b0b;
+      position: sticky;
+      top: 0;
+    }
+
+    .logo {
+      color: #38a581;
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+
+    nav a {
+      margin-left: 18px;
+      text-decoration: none;
+      color: #38a581;
+      font-weight: 600;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: -4px;
+      background-color: #38a581;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* MESSAGE CONTAINER */
+    .message-wrapper {
+      max-width: 780px;
+      margin: 70px auto;
+      padding: 30px 45px;
+      position: relative;
+    }
+
+    /* GREEN SNAKE SIDES */
+    .snake-left,
+    .snake-right {
+      position: absolute;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        #48bce6,
+        transparent
+      );
+      animation: snakeMove 4s linear infinite;
+    }
+
+    .snake-left { left: 0; }
+    .snake-right { right: 0; animation-delay: 1.8s; }
+
+    @keyframes snakeMove {
+      from { background-position: 0 0; }
+      to { background-position: 0 320px; }
+    }
+
+    section.intro-text {
+      color: #82c99a;
+      line-height: 1.8;
+    }
+
+    section.intro-text h3 {
+      color: #38a581;
+      margin-bottom: 15px;
+    }
+
+    section.intro-text p {
+      margin-bottom: 14px;
+    }
+
+    .highlight {
+      background: linear-gradient(90deg, transparent, #ab272b, transparent);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    section.credits {
+      text-align: center;
+      color: #47d3d5;
+      margin: 80px auto;
+    }
+
+    section.credits h1,
+    section.credits h2 {
+      color: #38a581;
+    }
+
+    section.credits h2 {
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    section.credits h2:hover {
+      transform: scale(1.04);
+      color: #82c99a;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">DEALLOOP</div>
+  <nav>
+    <a href="main.html">HOME</a>
+    <a href="coup.html">COUPONS</a>
+    <a href="aboutus.html">ABOUT US</a>
+    <a href="con.html">CONTACT</a>
+  </nav>
+</header>
+
+<!-- ABOUT CONTENT WITH SNAKE ANIMATION -->
+<div class="message-wrapper">
+  <div class="snake-left"></div>
+  <div class="snake-right"></div>
+
+  <section class="intro-text">
+    <h3>Welcome to DealLoop — where smart shoppers meet smarter savings!</h3>
+
+    <p>
+      DealLoop is built on a simple idea: saving money should be easy, organized,
+      and shared. We’re not just another coupon site — we’re a
+      <span class="highlight">community-driven platform</span> designed to help
+      users make the most out of every purchase.
+    </p>
+
+    <p>
+      At the heart of the platform lies <strong>DealLocker</strong>, a private
+      digital wallet where users can store coupon codes collected from across
+      the internet. DealLocker allows users to organize coupons by category,
+      brand, and expiry date, ensuring that no valuable deal is ever lost or
+      forgotten.
+    </p>
+
+    <p>
+      Complementing this is <strong>Deal Loop</strong>, the public discovery
+      space. Instead of overwhelming users with random coupon codes, Deal Loop
+      follows a clean, category-first approach. Users browse categories first,
+      and only then view the available deals within them, creating a focused and
+      clutter-free experience.
+    </p>
+
+    <p>
+      Together, DealLocker and Deal Loop form a closed-loop system — moving deals
+      smoothly from private storage to public visibility when users choose to
+      share them. This separation keeps personal organization intact while still
+      encouraging community-driven savings.
+    </p>
+
+    <p>
+      Built entirely using <strong>HTML, CSS, and JavaScript</strong>, the
+      platform uses browser storage for persistence, making it lightweight,
+      fast, and accessible without relying on a backend.
+    </p>
+
+    <p>
+      💡 <strong>Our mission:</strong> keep everyone in the loop — so no one ever
+      pays full price again.
+    </p>
+  </section>
+</div>
+
+<section class="credits">
+  <h1>CREDITS</h1>
+  <h2>DHRUV BHANDARI — HEAD OF TEAM</h2>
+  <h2>BHUMIKA SREERAM — MEMBER OF TEAM</h2>
+</section>
+
+<footer>
+  © 2025 Bhandari & Company. All rights reserved.
+</footer>
+
+</body>
+</html>

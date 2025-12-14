@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DealLocker | My Locker</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgb(12, 11, 11);
+      color: rgb(219, 213, 213);
+      overflow-x: hidden;
+    }
+
+    
+    .grid-bg {
+      position:/* BACKGROUND GRID */ fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .grid-line {
+      position: absolute;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        #38a581,
+        transparent
+      );
+      opacity: 0.15;
+      animation: flow 12s linear infinite;
+    }
+
+    .horizontal {
+      height: 2px;
+      width: 100%;
+      animation-name: flowH;
+    }
+
+    @keyframes flow {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(100%); }
+    }
+
+    @keyframes flowH {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
+
+    /* CONTENT LAYER */
+    header, main, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: rgba(11, 11, 11, 0.95);
+    }
+
+    .logo {
+      color: #38a581;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #38a581;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #38a581;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: rgba(17, 17, 17, 0.9);
+      padding: 18px;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      color: #82c99a;
+      margin-bottom: 5px;
+    }
+
+    .card small {
+      display: block;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+
+    button {
+      background-color: #38a581;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2e7b59;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(17, 17, 17, 0.95);
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- GRID BACKGROUND -->
+<div class="grid-bg" id="gridBg"></div>
+
+<header>
+  <div class="logo">DealLocker</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="../dealloop/main.html">Deal Loop</a>
+  </nav>
+</header>
+
+<main>
+  <h2>My Locker</h2>
+  <div class="cards" id="lockerList"></div>
+</main>
+
+<footer>
+  © 2025 Bhandari & Company. All rights reserved.
+</footer>
+
+<script>
+  /* GENERATE GRID LINES */
+  const grid = document.getElementById("gridBg");
+
+  for (let i = 0; i < 12; i++) {
+    const vLine = document.createElement("div");
+    vLine.className = "grid-line";
+    vLine.style.width = "2px";
+    vLine.style.height = "100%";
+    vLine.style.left = Math.random() * 100 + "%";
+    vLine.style.animationDelay = Math.random() * 12 + "s";
+    grid.appendChild(vLine);
+
+    const hLine = document.createElement("div");
+    hLine.className = "grid-line horizontal";
+    hLine.style.top = Math.random() * 100 + "%";
+    hLine.style.animationDelay = Math.random() * 12 + "s";
+    grid.appendChild(hLine);
+  }
+
+  /* DEALLOCKER DATA */
+  let coupons = JSON.parse(localStorage.getItem("dealLockerCoupons")) || [];
+  const list = document.getElementById("lockerList");
+
+  function renderLocker() {
+    list.innerHTML = "";
+
+    if (coupons.length === 0) {
+      list.innerHTML = "<p>Your locker is empty.</p>";
+      return;
+    }
+
+    coupons.forEach((c, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <h3>${c.code}</h3>
+        <small>${c.brand} • ${c.category}</small>
+        <small>Expires: ${c.expiry}</small>
+        <button onclick="removeCoupon(${index})">Delete</button>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  function removeCoupon(index) {
+    coupons.splice(index, 1);
+    localStorage.setItem("dealLockerCoupons", JSON.stringify(coupons));
+    renderLocker();
+  }
+
+  renderLocker();
+</script>
+
+</body>
+</html>

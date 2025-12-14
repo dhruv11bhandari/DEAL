@@ -1,0 +1,27 @@
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+header {
+  display: flex;
+  justify-content: flex-end; /* aligns stuff to the right */
+  align-items: center;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.logo {
+  margin-right: 20px; /* space between logo and nav links */
+  color: #3aa468;
+}
+
+nav a {
+  margin-left: 15px; /* space between nav links */
+  text-decoration: none;
+  color: #38a581;
+}

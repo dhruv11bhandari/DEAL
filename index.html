@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DealLocker</title>
+
+  <style>
+    body {
+      background-color: rgb(12, 11, 11);
+      color: rgb(219, 213, 213);
+      margin: 0;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* FULL PAGE STARS */
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #f9fbfa;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.4); }
+    }
+
+    /* CONTENT ABOVE STARS */
+    header, section, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: rgba(11, 11, 11, 0.95);
+      position: sticky;
+      top: 0;
+    }
+
+    .logo {
+      color: #38a581;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #38a581;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #38a581;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 20px auto;
+      line-height: 1.6;
+      color: #82c99a;
+    }
+
+    .hero button {
+      background-color: #38a581;
+      color: white;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hero button:hover {
+      background-color: #2e7b59;
+    }
+
+    /* INFO */
+    .info {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 60px 20px;
+      background-color: rgba(17, 17, 17, 0.85);
+      flex-wrap: wrap;
+    }
+
+    .info-box {
+      max-width: 260px;
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .info-box h3 {
+      color: #38a581;
+    }
+
+    /* ADD COUPON */
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    form {
+      background-color: rgba(17, 17, 17, 0.9);
+      padding: 25px;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: none;
+      background-color: #222;
+      color: #ddd;
+      margin-bottom: 12px;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 80px;
+    }
+
+    button.submit {
+      background-color: #38a581;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(17, 17, 17, 0.95);
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- STAR BACKGROUND -->
+<div class="stars" id="stars"></div>
+
+<header>
+  <div class="logo">DealLocker</div>
+  <nav>
+    <a href="my-deals.html">My Locker</a>
+    <a href="../dealloop/main.html">Deal Loop</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Your Deals. Locked.</h1>
+    <p>
+      DealLocker is your private space to store and manage coupon codes.
+      Save once. Use anytime. Never miss a deal again.
+    </p>
+    <button onclick="document.getElementById('addCoupon').scrollIntoView()">
+      Add Your First Coupon
+    </button>
+  </div>
+</section>
+
+<section class="info">
+  <div class="info-box">
+    <h3>Save</h3>
+    <p>Keep all your coupons in one secure place.</p>
+  </div>
+  <div class="info-box">
+    <h3>Organize</h3>
+    <p>Sort deals by category and brand.</p>
+  </div>
+  <div class="info-box">
+    <h3>Use</h3>
+    <p>Access your coupons whenever you need them.</p>
+  </div>
+</section>
+
+<section id="addCoupon" class="container">
+  <h2>Add Coupon to DealLocker</h2>
+
+  <form onsubmit="addCoupon(event)">
+    <label>Coupon Code</label>
+    <input type="text" id="code" required>
+
+    <label>Company / Brand</label>
+    <input type="text" id="brand" required>
+
+    <label>Category</label>
+    <select id="category">
+      <option>Food</option>
+      <option>Fashion</option>
+      <option>Travel</option>
+      <option>SaaS</option>
+      <option>Shopping</option>
+    </select>
+
+    <label>Expiry Date</label>
+    <input type="date" id="expiry" required>
+
+    <label>Notes</label>
+    <textarea id="notes"></textarea>
+
+    <button type="submit" class="submit">Save to DealLocker</button>
+  </form>
+</section>
+
+<footer>
+  © 2025 Bhandari & Company. All rights reserved.
+</footer>
+
+<script>
+  /* STAR GENERATION */
+  const starsContainer = document.getElementById("stars");
+
+  for (let i = 0; i < 70; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.animationDelay = Math.random() * 3 + "s";
+    starsContainer.appendChild(star);
+  }
+
+  /* DEALLOCKER LOGIC */
+  let coupons = JSON.parse(localStorage.getItem("dealLockerCoupons")) || [];
+
+  function addCoupon(e) {
+    e.preventDefault();
+
+    const coupon = {
+      id: Date.now(),
+      code: code.value,
+      brand: brand.value,
+      category: category.value,
+      expiry: expiry.value,
+      notes: notes.value
+    };
+
+    coupons.push(coupon);
+    localStorage.setItem("dealLockerCoupons", JSON.stringify(coupons));
+    e.target.reset();
+
+    alert("Coupon saved to DealLocker");
+  }
+</script>
+
+</body>
+</html>

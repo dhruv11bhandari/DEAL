@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DealLoop - Coupons</title>
+
+  <style>
+    body {
+      background-color: rgb(12, 11, 11);
+      color: rgb(219, 213, 213);
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #0b0b0b;
+    }
+
+    .logo a {
+      color: #38a581;
+      font-weight: bold;
+      font-size: 2rem;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #38a581;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin-top: 15px;
+      background-color: #38a581;
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+      background-color: #222;
+    }
+
+    .feature-card {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      background-color: #2e7b59;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #111;
+      padding: 20px;
+      border-radius: 6px;
+      width: 360px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 10px;
+      color: #38a581;
+    }
+
+    .item {
+      padding: 10px;
+      background: #222;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .item:hover {
+      background: #2e7b59;
+    }
+
+    .small {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <a href="../deallocker/index.html">DEALLOCKER</a>
+  </div>
+  <nav>
+    <a href="main.html">HOME</a>
+    <a href="coup.html">COUPONS</a>
+    <a href="aboutus.html">ABOUT US</a>
+    <a href="con.html">CONTACT</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Welcome to DealLoop</h1>
+  <p>Explore deals by category.</p>
+  <button class="btn" onclick="openCategoryModal()">GET FROM DEALLOCKER</button>
+</section>
+
+<section id="features" class="features"></section>
+
+<footer>
+  © 2025 Bhandari and Company. All rights reserved.
+</footer>
+
+<!-- MODAL -->
+<div id="lockerModal" class="modal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Choose Category</h3>
+    <div id="modalList"></div>
+    <button class="btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+  let lockerCoupons = JSON.parse(localStorage.getItem("dealLockerCoupons")) || [];
+  let publicCoupons = JSON.parse(localStorage.getItem("dealLoopPublicCoupons")) || [];
+
+  const features = document.getElementById("features");
+  const modal = document.getElementById("lockerModal");
+  const modalList = document.getElementById("modalList");
+  const modalTitle = document.getElementById("modalTitle");
+
+  /* ---------- SYNC LOGIC ---------- */
+  function syncWithLocker() {
+    lockerCoupons = JSON.parse(localStorage.getItem("dealLockerCoupons")) || [];
+
+    // keep only public coupons that still exist in locker
+    publicCoupons = publicCoupons.filter(pub =>
+      lockerCoupons.some(lock =>
+        lock.code === pub.code &&
+        lock.brand === pub.brand &&
+        lock.expiry === pub.expiry
+      )
+    );
+
+    localStorage.setItem(
+      "dealLoopPublicCoupons",
+      JSON.stringify(publicCoupons)
+    );
+  }
+
+  /* ---------- DISPLAY: CATEGORIES FIRST ---------- */
+
+  function renderCategories() {
+    syncWithLocker();   // 👈 IMPORTANT
+    features.innerHTML = "";
+
+    const categories = [...new Set(publicCoupons.map(c => c.category))];
+
+    if (categories.length === 0) {
+      features.innerHTML = "<p style='padding:20px;'>No public coupons yet.</p>";
+      return;
+    }
+
+    categories.forEach(cat => {
+      const card = document.createElement("div");
+      card.className = "feature-card";
+      card.innerHTML = `
+        <h3>${cat}</h3>
+        <p style="font-size:0.85rem;opacity:0.8">Click to view deals</p>
+      `;
+      card.onclick = () => renderCouponsByCategory(cat);
+      features.appendChild(card);
+    });
+  }
+
+  function renderCouponsByCategory(category) {
+    syncWithLocker();   // 👈 IMPORTANT
+    features.innerHTML = "";
+
+    const backCard = document.createElement("div");
+    backCard.className = "feature-card";
+    backCard.innerHTML = "<h3>← Back</h3>";
+    backCard.onclick = renderCategories;
+    features.appendChild(backCard);
+
+    publicCoupons
+      .filter(c => c.category === category)
+      .forEach(c => {
+        const card = document.createElement("div");
+        card.className = "feature-card";
+        card.innerHTML = `
+          <h3>${c.brand}</h3>
+          <p>${c.code}</p>
+          <p style="font-size:0.85rem;opacity:0.8">
+            Expires: ${c.expiry}
+          </p>
+        `;
+        features.appendChild(card);
+      });
+  }
+
+  /* ---------- MODAL: ADD FROM DEALLOCKER ---------- */
+
+  function openCategoryModal() {
+    lockerCoupons = JSON.parse(localStorage.getItem("dealLockerCoupons")) || [];
+    modalTitle.innerText = "Choose Category";
+    modalList.innerHTML = "";
+
+    const categories = [...new Set(lockerCoupons.map(c => c.category))];
+
+    if (categories.length === 0) {
+      modalList.innerHTML = "<p>No coupons in DealLocker.</p>";
+    }
+
+    categories.forEach(cat => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerText = cat;
+      div.onclick = () => showCouponsByCategory(cat);
+      modalList.appendChild(div);
+    });
+
+    modal.style.display = "flex";
+  }
+
+  function showCouponsByCategory(category) {
+    modalTitle.innerText = category + " Coupons";
+    modalList.innerHTML = "";
+
+    lockerCoupons
+      .filter(c => c.category === category)
+      .forEach(c => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <strong>${c.brand}</strong><br>
+          Code: ${c.code}<br>
+          <span style="font-size:0.85rem;opacity:0.8">
+            Expires: ${c.expiry}
+          </span>
+        `;
+        div.onclick = () => addToDealLoop(c);
+        modalList.appendChild(div);
+      });
+  }
+
+  function addToDealLoop(coupon) {
+    publicCoupons.push(coupon);
+    localStorage.setItem("dealLoopPublicCoupons", JSON.stringify(publicCoupons));
+    closeModal();
+    renderCategories();
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+  }
+
+  /* ---------- AUTO-SYNC ON STORAGE CHANGE ---------- */
+  window.addEventListener("storage", () => {
+    renderCategories();
+  });
+
+  /* ---------- INITIAL LOAD ---------- */
+  renderCategories();
+</script>
+
+
+</body>
+</html>
