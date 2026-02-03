@@ -111,7 +111,7 @@ Perfect for **college projects & frontend demos**.
 
 **Dhruv Bhandari** — Head of Team  
 **Bhumika Sreeram** — Team Member  
-
+**Harshit BA** — Team Member 
 ---
 
 ## ⭐ Final Thought
