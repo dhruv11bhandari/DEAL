@@ -13,6 +13,8 @@ in a clean and user-friendly way — built entirely with **HTML, CSS, and JavaSc
 
 ## 🚀 Project Overview
 
+
+
 **DealLocker and Deal Loop together form a closed-loop coupon management system.**
 
 - **DealLocker** → a private coupon wallet
